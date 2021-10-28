@@ -2,12 +2,18 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import Slider, { Range } from 'rc-slider';
 import 'rc-slider/assets/index.css';
-import "./Navbar.css"
+// import "./Navbar.css"
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import {withStyles} from '@material-ui/styles'
+import styles from './styles/NavBarStyles';
+
+
+
+
 
 class Navbar extends Component {
     constructor(props){
@@ -27,16 +33,17 @@ class Navbar extends Component {
     }
 
     render() {
-        const {level , changeLevel , showingAllColors } = this.props
+        const {level , changeLevel , showingAllColors , classes } = this.props
         const {format} = this.state
+      
         return (
-            <header className="Navbar" >
-                <div className='logo' >
+            <header className={classes.navbar} >
+                <div className={classes.brand} >
                     <Link to="/" >React Color Picker</Link>
                 </div>
                 {showingAllColors && (
-                    <div className='slider-container' >
-                      <div className="slider" >
+                    <div  >
+                      <div className={classes.slider} >
                         <span>Level : {level}</span>
                         <Slider 
                             defaultValue={level} 
@@ -48,7 +55,7 @@ class Navbar extends Component {
 
                     </div>
                 )}
-                <div className="select-container" >
+                <div className={classes.selectContainer} >
                     <Select value={format} onChange={this.handleFormatChange} > 
                         <MenuItem value="hex">Hex - #ffffff</MenuItem>
                         <MenuItem value="rgb" >RGB - rgb(255 , 255 , 255)</MenuItem>
@@ -79,4 +86,4 @@ class Navbar extends Component {
     }
 }
 
-export default Navbar
+export default withStyles(styles)(Navbar)
